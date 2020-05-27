@@ -1,5 +1,6 @@
 package br.com.marcoscalicy;
 
+import br.com.marcoscalicy.exception.ExceptionOperadorNaoSuportado;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,7 +12,7 @@ public class MathController {
     @RequestMapping(value="/sun/{numberOne}/{numberTwo}", method = RequestMethod.GET)
     public Double sun(@PathVariable("numberOne") String numberOne, @PathVariable("numberTwo") String numberTwo) throws Exception {
         if(!isNumeric(numberOne) || !isNumeric(numberTwo)){
-            throw new Exception();
+            throw new ExceptionOperadorNaoSuportado("Por favor defina um valor numérico!");
         }
         return converToDouble(numberOne) + converToDouble(numberTwo);
     }
