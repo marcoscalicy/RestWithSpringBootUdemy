@@ -1,6 +1,6 @@
 package br.com.marcoscalicy.controller;
 
-import br.com.marcoscalicy.model.Person;
+import br.com.marcoscalicy.data.vo.PersonVO;
 import br.com.marcoscalicy.service.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,22 +16,22 @@ public class PersonController {
     private PersonServices services;
 
     @GetMapping
-    public List<Person> findByAll(){
+    public List<PersonVO> findByAll(){
         return services.findAll();
     }
 
     @GetMapping("/{id}")
-    public Person findById(@PathVariable("id") Long id){
+    public PersonVO findById(@PathVariable("id") Long id){
         return services.findById(id);
     }
 
     @PostMapping
-    public Person createPerson(@RequestBody Person person){
+    public PersonVO createPerson(@RequestBody PersonVO person){
         return services.create(person);
     }
 
     @PutMapping
-    public Person updatePerson(@RequestBody Person person){
+    public PersonVO updatePerson(@RequestBody PersonVO person){
         return services.update(person);
     }
 

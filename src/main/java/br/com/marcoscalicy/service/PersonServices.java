@@ -1,7 +1,9 @@
 package br.com.marcoscalicy.service;
 
+import br.com.marcoscalicy.converter.DozerConverter;
+import br.com.marcoscalicy.data.model.Person;
+import br.com.marcoscalicy.data.vo.PersonVO;
 import br.com.marcoscalicy.exception.ExceptionOperadorNaoSuportado;
-import br.com.marcoscalicy.model.Person;
 import br.com.marcoscalicy.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,25 +16,30 @@ public class PersonServices {
     @Autowired
     PersonRepository repository;
 
-    public Person create(Person person) {
-        return repository.save(person);
+    public PersonVO create(PersonVO person) {
+        var entity = DozerConverter.parseObject(person, Person.class);
+        var vo = DozerConverter.parseObject(repository.save(entity), PersonVO.class);
+        return vo;
     }
 
-    public List<Person> findAll() {
-        return repository.findAll();
+    public List<PersonVO> findAll() {
+        return DozerConverter.parseListObjects(repository.findAll(), PersonVO.class);
     }
 
-    public Person findById(Long id){
-        return repository.findById(id).orElseThrow(() -> new ExceptionOperadorNaoSuportado("Não encontrado o Id"));
+    public PersonVO findById(Long id){
+        var entity = repository.findById(id).orElseThrow(() -> new ExceptionOperadorNaoSuportado("Não encontrado o Id"));
+        return DozerConverter.parseObject(entity, PersonVO.class);
     }
 
-    public Person update(Person person) {
-        Person entity = repository.findById(person.getId()).orElseThrow(() -> new ExceptionOperadorNaoSuportado("Não encontrado o Id"));
+    public PersonVO update(PersonVO person) {
+        var entity = repository.findById(person.getId()).orElseThrow(() -> new ExceptionOperadorNaoSuportado("Não encontrado o Id"));
         entity.setFirstName(person.getFirstName());
         entity.setLastName(person.getLastName());
         entity.setAdrdess(person.getAdrdess());
         entity.setGenere(person.getGenere());
-        return repository.save(entity);
+
+        var vo = DozerConverter.parseObject(repository.save(entity), PersonVO.class);
+        return vo;
     }
 
     public void delete(Long id) {
