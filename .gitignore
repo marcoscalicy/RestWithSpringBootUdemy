@@ -17,6 +17,6 @@ HELP.mdtarget/
 *.iws
 *.iml
 *.ipr
-
+target/*
 ### VS Code ###
 .vscode/
