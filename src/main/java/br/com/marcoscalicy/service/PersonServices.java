@@ -2,7 +2,7 @@ package br.com.marcoscalicy.service;
 
 import br.com.marcoscalicy.converter.DozerConverter;
 import br.com.marcoscalicy.data.model.Person;
-import br.com.marcoscalicy.data.vo.PersonVO;
+import br.com.marcoscalicy.data.vo.v1.PersonVO;
 import br.com.marcoscalicy.exception.ExceptionOperadorNaoSuportado;
 import br.com.marcoscalicy.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class PersonServices {
         var entity = repository.findById(person.getId()).orElseThrow(() -> new ExceptionOperadorNaoSuportado("Não encontrado o Id"));
         entity.setFirstName(person.getFirstName());
         entity.setLastName(person.getLastName());
-        entity.setAdrdess(person.getAdrdess());
+        entity.setAddress(person.getAddress());
         entity.setGenere(person.getGenere());
 
         var vo = DozerConverter.parseObject(repository.save(entity), PersonVO.class);

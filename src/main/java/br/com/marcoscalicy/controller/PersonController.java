@@ -1,6 +1,6 @@
 package br.com.marcoscalicy.controller;
 
-import br.com.marcoscalicy.data.vo.PersonVO;
+import br.com.marcoscalicy.data.vo.v1.PersonVO;
 import br.com.marcoscalicy.service.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person/v1")
 public class PersonController {
 
     @Autowired

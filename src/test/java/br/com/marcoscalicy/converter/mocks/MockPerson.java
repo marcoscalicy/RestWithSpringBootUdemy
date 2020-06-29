@@ -1,7 +1,7 @@
 package br.com.marcoscalicy.converter.mocks;
 
 import br.com.marcoscalicy.data.model.Person;
-import br.com.marcoscalicy.data.vo.PersonVO;
+import br.com.marcoscalicy.data.vo.v1.PersonVO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class MockPerson {
 
     private Person mockEntity(Integer number) {
         Person person = new Person();
-        person.setAdrdess("Addres Test" + number);
+        person.setAddress("Addres Test" + number);
         person.setFirstName("First Name Test" + number);
         person.setGenere(((number % 2)==0) ? "Male" : "Female");
         person.setId(number.longValue());
@@ -44,7 +44,7 @@ public class MockPerson {
 
     private PersonVO mockVO(Integer number) {
         PersonVO person = new PersonVO();
-        person.setAdrdess("Addres Test" + number);
+        person.setAddress("Addres Test" + number);
         person.setFirstName("First Name Test" + number);
         person.setGenere(((number % 2)==0) ? "Male" : "Female");
         person.setId(number.longValue());
