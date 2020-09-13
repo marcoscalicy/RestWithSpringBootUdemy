@@ -2,6 +2,7 @@ package br.com.marcoscalicy.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -27,7 +28,8 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfo("RestFull API With Spring boot 2.1.3",
+        return new ApiInfo(
+                "RestFull API With Spring boot 2.1.3",
                 "Descrição de teste da API",
                 "V1",
                 "Termos de Serviços URL",

@@ -13,6 +13,7 @@ import java.util.List;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+//@CrossOrigin
 @Api(value = "Person Controller", tags  = "Person Endpoint")
 @RestController
 @RequestMapping("/api/person/v1")
@@ -23,7 +24,7 @@ public class PersonController {
 
     @ApiOperation(value = "Busca por todas pessoas" )
     @GetMapping(produces = {"application/json", "application/xml", "application/x-yaml"})
-    public List<PersonVO> findByAll(){
+    public List<PersonVO> findAll(){
         List<PersonVO> personsVO = services.findAll();
         personsVO.stream()
                 .forEach(p -> p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()));
@@ -58,7 +59,7 @@ public class PersonController {
 
     @ApiOperation(value = "Deleta Pessoa" )
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteId(@PathVariable("id") Long id){
+    public ResponseEntity<?> delete(@PathVariable("id") Long id){
         services.delete(id);
         return ResponseEntity.ok().build();
     }

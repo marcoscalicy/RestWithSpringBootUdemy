@@ -12,7 +12,7 @@ import java.util.Objects;
 @JsonPropertyOrder({"id", "author", "launchDate", "price", "title"})
 public class BookVO extends ResourceSupport implements Serializable {
 
-    private static final long serialVersionUID = 4220834798812769593L;
+    private static final long serialVersionUID = 1L;
 
     @Mapping("id")
     @JsonProperty("id")
@@ -41,7 +41,9 @@ public class BookVO extends ResourceSupport implements Serializable {
         this.author = author;
     }
 
-    public Date getLaunchDate() {   return launchDate; }
+    public Date getLaunchDate() {   
+          return launchDate; 
+    }
 
     public void setLaunchDate(Date launchDate) {
         this.launchDate = launchDate;

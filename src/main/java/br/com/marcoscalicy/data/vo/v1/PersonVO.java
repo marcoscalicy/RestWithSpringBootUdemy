@@ -1,17 +1,17 @@
 package br.com.marcoscalicy.data.vo.v1;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.github.dozermapper.core.Mapping;
 import org.springframework.hateoas.ResourceSupport;
 
-import java.io.Serializable;
-import java.util.Objects;
-
-@JsonPropertyOrder({"id", "firstName", "last_Name", "address", "genere"})
+@JsonPropertyOrder({ "id", "firstName", "lastName", "address", "genere" })
 public class PersonVO extends ResourceSupport implements Serializable {
 
-    private static final long serialVersionUID = 4220834798812769593L;
+    private static final long serialVersionUID = 1L;
 
     @Mapping("id")
     @JsonProperty("id")
@@ -22,6 +22,9 @@ public class PersonVO extends ResourceSupport implements Serializable {
     private String address;
     //@JsonIgnore
     private String genere;
+
+    public PersonVO() {
+    }
 
     public Long getKey() {
         return key;
