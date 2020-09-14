@@ -64,4 +64,15 @@ public class PersonController {
         return ResponseEntity.ok().build();
     }
 
+    @ApiOperation(value = "Desabilitando Person por ID específico" )
+    @PatchMapping(value = "/{id}", produces = {"application/json", "application/xml", "application/x-yaml"})
+    public PersonVO disablePerson(@PathVariable("id") Long id){
+        PersonVO personVO = services.disabledPerson(id);
+        personVO.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
+        return personVO;
+    }
+
+
+
+
 }

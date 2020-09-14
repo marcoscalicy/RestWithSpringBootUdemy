@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.github.dozermapper.core.Mapping;
 import org.springframework.hateoas.ResourceSupport;
 
-@JsonPropertyOrder({ "id", "firstName", "lastName", "address", "genere" })
+@JsonPropertyOrder({ "id", "firstName", "lastName", "address", "genere", "enabled"})
 public class PersonVO extends ResourceSupport implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -22,8 +22,17 @@ public class PersonVO extends ResourceSupport implements Serializable {
     private String address;
     //@JsonIgnore
     private String genere;
+    private Boolean enabled;
 
     public PersonVO() {
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public Long getKey() {
@@ -76,11 +85,12 @@ public class PersonVO extends ResourceSupport implements Serializable {
                 Objects.equals(getFirstName(), personVO.getFirstName()) &&
                 Objects.equals(getLastName(), personVO.getLastName()) &&
                 Objects.equals(getAddress(), personVO.getAddress()) &&
-                Objects.equals(getGenere(), personVO.getGenere());
+                Objects.equals(getGenere(), personVO.getGenere()) &&
+                Objects.equals(getEnabled(), personVO.getEnabled());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getKey(), getFirstName(), getLastName(), getAddress(), getGenere());
+        return Objects.hash(super.hashCode(), getKey(), getFirstName(), getLastName(), getAddress(), getGenere(), getEnabled());
     }
 }

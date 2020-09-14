@@ -26,7 +26,18 @@ public class Person implements Serializable {
     @Column(nullable = false, length = 6)
     private String genere;
 
+    @Column(nullable = false)
+    private Boolean enabled;
+
     public Person() {
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public Long getId() {
