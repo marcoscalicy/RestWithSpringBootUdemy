@@ -6,6 +6,7 @@ import br.com.marcoscalicy.data.vo.v1.PersonVO;
 import br.com.marcoscalicy.exception.ExceptionOperadorNaoSuportado;
 import br.com.marcoscalicy.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,8 +24,10 @@ public class PersonServices {
         return vo;
     }
 
-    public List<PersonVO> findAll() {
-        return DozerConverter.parseListObjects(repository.findAll(), PersonVO.class);
+    public List<PersonVO> findAll(Pageable pageable) {
+        var entities = repository.findAll(pageable).getContent();
+
+        return DozerConverter.parseListObjects(entities, PersonVO.class);
     }
 
     public PersonVO findById(Long id){

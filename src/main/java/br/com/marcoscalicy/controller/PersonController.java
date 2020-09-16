@@ -5,6 +5,9 @@ import br.com.marcoscalicy.service.PersonServices;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +27,16 @@ public class PersonController {
 
     @ApiOperation(value = "Busca por todas pessoas" )
     @GetMapping(produces = {"application/json", "application/xml", "application/x-yaml"})
-    public List<PersonVO> findAll(){
-        List<PersonVO> personsVO = services.findAll();
+    public List<PersonVO> findAll(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "limit", defaultValue = "12") int limit,
+            @RequestParam(value = "direct", defaultValue = "asc") String direct){
+
+        var sortDirection = "desc".equalsIgnoreCase(direct) ? Sort.Direction.DESC : Sort.Direction.ASC;
+
+        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "firstName"));
+
+        List<PersonVO> personsVO = services.findAll(pageable);
         personsVO.stream()
                 .forEach(p -> p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()));
         return personsVO;
@@ -71,8 +82,5 @@ public class PersonController {
         personVO.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
         return personVO;
     }
-
-
-
 
 }
