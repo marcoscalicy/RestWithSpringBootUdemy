@@ -24,6 +24,12 @@ public class PersonServices {
         return vo;
     }
 
+    public List<PersonVO> findPersonByName(String firstName, Pageable pageable) {
+        var entities = repository.findPersonByName(firstName, pageable).getContent();
+
+        return DozerConverter.parseListObjects(entities, PersonVO.class);
+    }
+
     public List<PersonVO> findAll(Pageable pageable) {
         var entities = repository.findAll(pageable).getContent();
 

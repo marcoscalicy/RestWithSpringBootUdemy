@@ -25,6 +25,23 @@ public class PersonController {
     @Autowired
     private PersonServices services;
 
+    @ApiOperation(value = "Busca por todas pessoas com texto específico" )
+    @GetMapping( value = "/findPersonByName/{firstName}", produces = {"application/json", "application/xml", "application/x-yaml"})
+    public List<PersonVO> findPersonByName(@PathVariable("firstName") String firstName,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "limit", defaultValue = "12") int limit,
+            @RequestParam(value = "direct", defaultValue = "asc") String direct){
+
+        var sortDirection = "desc".equalsIgnoreCase(direct) ? Sort.Direction.DESC : Sort.Direction.ASC;
+
+        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "firstName"));
+
+        List<PersonVO> personsVO = services.findPersonByName(firstName, pageable);
+        personsVO.stream()
+                .forEach(p -> p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()));
+        return personsVO;
+    }
+
     @ApiOperation(value = "Busca por todas pessoas" )
     @GetMapping(produces = {"application/json", "application/xml", "application/x-yaml"})
     public List<PersonVO> findAll(
